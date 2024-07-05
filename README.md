@@ -57,7 +57,6 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
 
    - Ensure variables like `VITE_APP_URL` match your environment setup.
 
-   - If you add a new variable to .env, ensure it is also added to .env.example and README.md for consistency.
 
 5. **Notes**
 
@@ -201,3 +200,5 @@ By following these guidelines, you can maintain a clear and structured commit hi
 - **When creating a new route, mention its path in `utilities/routes.ts` to maintain a centralized location for route definitions.**
 
 - **We recommend sticking to only one package manager once you start the project for consistency.**
+
+- **If you add a new variable to .env, ensure it is also added to .env.example and README.md for consistency.**
