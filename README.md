@@ -13,7 +13,6 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
 - **Linting/Formatting:** [Eslint](https://eslint.org/) & [Prettier](https://prettier.io/)
 - **Icons:** [Tabler Icons](https://tabler.io/icons)
 
-
 #### Project Configuration
 
 1. **Environment Setup**
@@ -27,19 +26,19 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
    Create a `.env` file in the root of your project based on `.env.example` with the following variables:
 
    ```plaintext
-   VITE_APP_URL
-   VITE_COOKIE_BASED_AUTHENTICATION
-   ```
+   # URL of the application
+   VITE_APP_URL=localhost:3000
 
-   - `VITE_APP_URL`: URL of your application.
-   - `VITE_COOKIE_BASED_AUTHENTICATION`: Set to `true` if using cookie-based authentication; otherwise, set to `false`.
+   # Enable or disable cookie-based authentication
+   VITE_COOKIE_BASED_AUTHENTICATION=false
+   ```
 
 3. **Running the Project**
 
    - Clone the repository:
 
-
    - Install dependencies using npm:
+
      ```bash
      npm install
      ```
@@ -55,6 +54,9 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
 
    - Ensure variables like `VITE_APP_URL` match your environment setup.
 
+   - If you add a new variable to .env, ensure it is also added to .env.example and README.md for consistency
+
+
 5. **Notes**
 
    - Update environment variables (`VITE_APP_URL`, etc.) according to your deployment and development environment needs.
@@ -66,18 +68,19 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
 ### Project Structure
 
 #### `api/`
+
 - **`api.service.ts`**: Contains services for handling backend API communication using `fetch`.
 - **`auth.service.ts`**: Manages authentication-related services like login, registration, and token management.
 - **`index.ts`**: Acts as an entry point, exporting modules from the `api` directory.
 
-
-
 #### `app/`
+
 - **`index.css`**: Global CSS styles for the application.
 - **`main.tsx`**: Main entry point for your React application, rendering the root component.
 - **`index.tsx`**: Entry point for the apps section of your application.
 
 #### `pages/`
+
 - Directory containing different pages of the application:
   - **`apps/`**: Pages related to various apps.
   - **`auth/`**: Authentication-related pages and components.
@@ -88,34 +91,40 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
   - **`tasks/`**: Pages and components related to task management.
 
 #### `components/`
+
 - Reusable UI components used across the application, organized into directories (`custom/`, `ui/`) based on functionality.
 
 #### `assets/`
+
 - Contains assets such as images, logos, etc., used in the application.
 
 #### `hooks/`
+
 - Custom hooks used for managing state, authentication, localStorage operations, etc.
 - `note`: use hook for handling the jotai atom.
 
 #### `lib/`
+
 - **`utils.ts`**: Utility functions for data manipulation, date formatting, etc.
 
 #### `models/`
+
 - **`user.model.ts`**: Defines the structure for user data include the request type and response type.
 
 #### `store/`
+
 - **`store.ts`**: Centralized state management setup using `Jotai`.
 - **`token.ts`**: Handles token management.
 
 #### `utilities/`
+
 - **`routes.ts`**: Defines routes or navigation paths used throughout the application.
 
 ---
 
 ### Additional Notes
 
- - ` If you add a new variable to .env, ensure it is also added to .env.example for consistency.`
 
- - `Prefer named exports throughout the project for better code readability and maintainability.`
+- `Prefer named exports throughout the project for better code readability and maintainability.`
 
- - `When creating a new route, mention its path in utilities/routes.ts to maintain a centralized location for route definitions.`
+- `When creating a new route, mention its path in utilities/routes.ts to maintain a centralized location for route definitions.`
