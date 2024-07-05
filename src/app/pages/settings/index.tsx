@@ -1,8 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import {
-  IconTool,
-  IconUser,
-} from '@tabler/icons-react'
+import { IconTool, IconUser } from '@tabler/icons-react'
 import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import { Separator } from '@/components/ui/separator'

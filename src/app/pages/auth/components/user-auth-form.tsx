@@ -41,15 +41,15 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const mutation = useMutation({
     mutationFn: (data: LoginRequest) => authService.login(data),
     onSuccess: (response) => {
-      let refreshToken = null;
-      if(import.meta.env.VITE_COOKIE_BASED_AUTHENTICATION === "true"){
+      let refreshToken = null
+      if (import.meta.env.VITE_COOKIE_BASED_AUTHENTICATION === 'true') {
         refreshToken = response.refreshToken
       }
-      login(response.user,refreshToken)
+      login(response.user, refreshToken)
       setIsLoading(false)
       toast({
         title: response.message,
-      });
+      })
       navigate(Routes.DASHBOARD)
     },
     onError: (error) => {
