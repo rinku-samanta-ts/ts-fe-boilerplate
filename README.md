@@ -128,7 +128,6 @@ To maintain a clear and consistent branch structure, we follow a specific naming
 Branches should be named according to the type of work being done. The allowed branch names must follow one of these patterns:
 
 - `master`
-- `main`
 - `develop`
 - `feature/<branch-name>`
 - `fix/<branch-name>`
