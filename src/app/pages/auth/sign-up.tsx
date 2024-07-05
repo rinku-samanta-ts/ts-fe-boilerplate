@@ -27,19 +27,18 @@ export default function SignUp() {
               <h1 className='text-lg font-semibold tracking-tight'>
                 Create an account
               </h1>
-              <p className='text-sm text-muted-foreground'>
-                Enter your email and password to create an account. <br />
-                Already have an account?{' '}
-                <Link
-                  to='/sign-in'
-                  className='underline underline-offset-4 hover:text-primary'
-                >
-                  Sign In
-                </Link>
-              </p>
             </div>
             <SignUpForm />
-            <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
+            <p className='mt-2 text-right text-sm font-medium	 text-muted-foreground'>
+              Already have an account?{' '}
+              <Link
+                to='/sign-in'
+                className='underline underline-offset-4 hover:text-primary'
+              >
+                Sign In
+              </Link>
+            </p>
+            {/* <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
               By creating an account, you agree to our{' '}
               <a
                 href='/terms'
@@ -55,7 +54,7 @@ export default function SignUp() {
                 Privacy Policy
               </a>
               .
-            </p>
+            </p> */}
           </Card>
         </div>
       </div>

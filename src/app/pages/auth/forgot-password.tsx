@@ -27,10 +27,6 @@ export default function ForgotPassword() {
               <h1 className='text-md font-semibold tracking-tight'>
                 Forgot Password
               </h1>
-              <p className='text-sm text-muted-foreground'>
-                Enter your registered email and <br /> we will send you a link
-                to reset your password.
-              </p>
             </div>
             <ForgotForm />
             <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
