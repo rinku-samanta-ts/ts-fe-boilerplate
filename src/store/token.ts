@@ -16,7 +16,6 @@ class TokenService {
   public setAccessToken(token: string): void {
     this.accessToken = token
   }
-
 }
 
 export default TokenService.getInstance()

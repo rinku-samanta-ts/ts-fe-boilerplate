@@ -17,7 +17,7 @@ const Layout = ({ className, fixed = false, ...props }: LayoutProps) => {
 
   React.useEffect(() => {
     //TODO: make this token dynamic once api available
-    tokenService.setAccessToken("token")
+    tokenService.setAccessToken('token')
     const div = divRef.current
 
     if (!div) return

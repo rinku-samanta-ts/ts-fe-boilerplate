@@ -56,7 +56,6 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
 
    - If you add a new variable to .env, ensure it is also added to .env.example and README.md for consistency
 
-
 5. **Notes**
 
    - Update environment variables (`VITE_APP_URL`, etc.) according to your deployment and development environment needs.
@@ -123,7 +122,6 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
 ---
 
 ### Additional Notes
-
 
 - `Prefer named exports throughout the project for better code readability and maintainability.`
 
