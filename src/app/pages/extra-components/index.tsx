@@ -73,7 +73,7 @@ export default function ExtraComponents() {
                 <div className='flex min-h-56 items-center justify-center rounded border'>
                   <PinInput
                     className='flex h-10 space-x-4'
-                    onComplete={(str) => console.log('completed', str)}
+                    onComplete={() => {}}
                     autoFocus
                   >
                     <PinInputField component={Input} />
@@ -123,7 +123,7 @@ export default function ExtraComponents() {
                     className='flex h-10 space-x-4'
                     value={pinInput}
                     onChange={setPinInput}
-                    onComplete={(str) => console.log('completed', str)}
+                    onComplete={() => {}}
                   >
                     {Array.from({ length: 4 }, (_, i) => (
                       <PinInputField key={i} component={Input} />

@@ -9,7 +9,7 @@ import Router from './router'
 const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme='dark' storageKey='my-ui-theme'>
+    <ThemeProvider defaultTheme='light' storageKey='my-ui-theme'>
       <QueryClientProvider client={queryClient}>
         <Router />
         <Toaster />

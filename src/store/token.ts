@@ -1,6 +1,9 @@
+import { Access } from '@/models/user.model'
+
 class TokenService {
   private static instance: TokenService
   private accessToken: string | null = null
+  private expiresAt: Date | null = null
 
   public static getInstance(): TokenService {
     if (!TokenService.instance) {
@@ -13,9 +16,14 @@ class TokenService {
     return this.accessToken
   }
 
-  public setAccessToken(token: string): void {
-    this.accessToken = token
+  public getExpiresAt(): Date | null {
+    return this.expiresAt
+  }
+
+  public setAccessToken(resp: Access): void {
+    this.accessToken = resp.token
+    this.expiresAt = new Date(resp.expires)
   }
 }
-
-export default TokenService.getInstance()
+const tokenStore = TokenService.getInstance()
+export { tokenStore }

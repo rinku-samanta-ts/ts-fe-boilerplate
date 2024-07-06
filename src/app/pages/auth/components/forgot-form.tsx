@@ -1,8 +1,3 @@
-import { HTMLAttributes, useState } from 'react'
-import { cn } from '@/lib/utils'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { Button } from '@/components/custom/button'
 import {
   Form,
@@ -13,27 +8,28 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
+import {
+  ForgotPasswordRequest,
+  forgotPasswordSchema,
+} from '@/validations/auth.validation'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { HTMLAttributes, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 interface ForgotFormProps extends HTMLAttributes<HTMLDivElement> {}
-
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'Please enter your email' })
-    .email({ message: 'Invalid email address' }),
-})
 
 export function ForgotForm({ className, ...props }: ForgotFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<ForgotPasswordRequest>({
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: { email: '' },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  function onSubmit() {
+  // data: ForgotPasswordRequest
     setIsLoading(true)
-    console.log(data)
 
     setTimeout(() => {
       setIsLoading(false)

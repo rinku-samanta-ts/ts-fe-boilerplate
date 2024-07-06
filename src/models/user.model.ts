@@ -1,7 +1,4 @@
-export interface LoginRequest {
-  email: string
-  password: string
-}
+import { GenericResponse } from './generic'
 
 export interface User {
   id: number
@@ -9,10 +6,19 @@ export interface User {
   email: string
 }
 
-export interface LoginResponse {
-  success: boolean
-  message: string
-  token: string
-  refreshToken?: string
+export type LoginResponse = GenericResponse<{
   user: User
+  tokens: Tokens
+}>
+
+export interface Tokens {
+  access: Access
+  refresh?: Access
 }
+
+export interface Access {
+  token: string
+  expires: Date
+}
+
+export type GenerateNewTokenResponse = GenericResponse<Tokens>

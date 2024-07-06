@@ -1,5 +1,4 @@
-import { authService } from '@/api'
-import { signupFormSchema } from '@/app/pages/auth/components/form-schema'
+// import { authService } from '@/api'
 import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import {
@@ -14,14 +13,14 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
-import { LoginRequest } from '@/models/user.model'
+import { LoginResponse } from '@/models/user.model'
 import { Routes } from '@/utilities/routes'
+import { LoginRequest, loginSchema } from '@/validations/auth.validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { HTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { z } from 'zod'
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -30,8 +29,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const { login } = useAuth()
   const navigate = useNavigate()
 
-  const form = useForm<z.infer<typeof signupFormSchema>>({
-    resolver: zodResolver(signupFormSchema),
+  const form = useForm<LoginRequest>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -39,13 +38,37 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   })
 
   const mutation = useMutation({
-    mutationFn: (data: LoginRequest) => authService.login(data),
+    mutationFn: async (d: LoginRequest) => {
+      const mockResponse: LoginResponse = {
+        data: {
+          user: {
+            id: 1,
+            username: 'John Doe',
+            email: d.email,
+          },
+          tokens: {
+            access: {
+              token: 'access-token',
+              expires: new Date(),
+            },
+            refresh: {
+              token: 'access-token',
+              expires: new Date(),
+            },
+          },
+        },
+        message: 'Login successful',
+        status: 200,
+      }
+      return mockResponse
+      // return authService.login(d)
+    },
     onSuccess: (response) => {
       let refreshToken = null
-      if (import.meta.env.VITE_COOKIE_BASED_AUTHENTICATION === 'true') {
-        refreshToken = response.refreshToken
+      if (!import.meta.env.VITE_COOKIE_BASED_AUTHENTICATION) {
+        refreshToken = response.data.tokens.refresh?.token || ''
       }
-      login(response.user, refreshToken)
+      login(response.data.user, refreshToken)
       setIsLoading(false)
       toast({
         title: response.message,
@@ -60,7 +83,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     },
   })
 
-  async function onSubmit(data: z.infer<typeof signupFormSchema>) {
+  async function onSubmit(data: LoginRequest) {
     setIsLoading(true)
     mutation.mutateAsync(data)
   }

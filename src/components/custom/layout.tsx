@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import tokenService from '@/store/token'
 
 const LayoutContext = React.createContext<{
   offset: number
@@ -17,7 +16,6 @@ const Layout = ({ className, fixed = false, ...props }: LayoutProps) => {
 
   React.useEffect(() => {
     //TODO: make this token dynamic once api available
-    tokenService.setAccessToken('token')
     const div = divRef.current
 
     if (!div) return

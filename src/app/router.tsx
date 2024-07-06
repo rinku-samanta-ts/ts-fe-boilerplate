@@ -1,107 +1,134 @@
-import { FC } from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import GeneralError from './pages/errors/general-error'
-import NotFoundError from './pages/errors/not-found-error'
-import MaintenanceError from './pages/errors/maintenance-error'
+import { authService } from '@/api'
+import Loader from '@/components/loader'
+import { useAuth } from '@/hooks/use-auth'
 import { Routes } from '@/utilities/routes'
 import { useQuery } from '@tanstack/react-query'
-import { authService } from '@/api'
-import { useAuth } from '@/hooks/use-auth'
-import tokenService from '@/store/token'
-import Loader from '@/components/loader'
+import { FC, useMemo } from 'react'
+import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
+import GeneralError from './pages/errors/general-error'
+import MaintenanceError from './pages/errors/maintenance-error'
+import NotFoundError from './pages/errors/not-found-error'
+import { tokenStore } from '@/store/token'
 
-const routers = createBrowserRouter([
-  // Auth routes
-  {
-    path: Routes.SIGN_IN,
-    lazy: async () => ({
-      Component: (await import('./pages/auth/sign-in')).default,
-    }),
-  },
-  {
-    path: Routes.SIGN_UP,
-    lazy: async () => ({
-      Component: (await import('./pages/auth/sign-up')).default,
-    }),
-  },
-  {
-    path: Routes.FORGOT_PASSWORD,
-    lazy: async () => ({
-      Component: (await import('./pages/auth/forgot-password')).default,
-    }),
-  },
-  {
-    path: Routes.OTP,
-    lazy: async () => ({
-      Component: (await import('./pages/auth/otp')).default,
-    }),
-  },
-
-  // Main routes
-  {
-    path: Routes.DASHBOARD,
-    lazy: async () => {
-      const AppShell = await import('@/components/app-shell')
-      return { Component: AppShell.default }
-    },
-    errorElement: <GeneralError />,
-    children: [
-      {
-        index: true,
-        lazy: async () => ({
-          Component: (await import('./pages/dashboard')).default,
-        }),
-      },
-      {
-        path: Routes.TASKS,
-        lazy: async () => ({
-          Component: (await import('./pages/tasks')).default,
-        }),
-      },
-
-      {
-        path: Routes.SETTINGS.ROOT,
-        lazy: async () => ({
-          Component: (await import('./pages/settings')).default,
-        }),
-        errorElement: <GeneralError />,
-        children: [
-          {
-            index: true,
-            lazy: async () => ({
-              Component: (await import('./pages/settings/profile')).default,
-            }),
+const Setup = () => {
+  const { isLoggedIn } = useAuth()
+  const routers = useMemo(
+    () =>
+      createBrowserRouter([
+        // Auth routes
+        {
+          path: Routes.SIGN_IN,
+          lazy: async () => ({
+            Component: (await import('./pages/auth/sign-in')).default,
+          }),
+          loader: () => {
+            if (isLoggedIn) {
+              return redirect(Routes.DASHBOARD)
+            } else {
+              return null
+            }
           },
-          {
-            path: Routes.SETTINGS.ACCOUNT,
-            lazy: async () => ({
-              Component: (await import('./pages/settings/account')).default,
-            }),
+        },
+        {
+          path: Routes.SIGN_UP,
+          lazy: async () => ({
+            Component: (await import('./pages/auth/sign-up')).default,
+          }),
+        },
+        {
+          path: Routes.FORGOT_PASSWORD,
+          lazy: async () => ({
+            Component: (await import('./pages/auth/forgot-password')).default,
+          }),
+        },
+        {
+          path: Routes.OTP,
+          lazy: async () => ({
+            Component: (await import('./pages/auth/otp')).default,
+          }),
+        },
+
+        // Main routes
+        {
+          path: Routes.DASHBOARD,
+          lazy: async () => {
+            const AppShell = await import('@/components/app-shell')
+            return { Component: AppShell.default }
           },
-        ],
-      },
-    ],
-  },
+          loader: () => {
+            if (!isLoggedIn) {
+              return redirect(Routes.SIGN_IN)
+            } else {
+              return null
+            }
+          },
+          errorElement: <GeneralError />,
+          children: [
+            {
+              index: true,
+              lazy: async () => ({
+                Component: (await import('./pages/dashboard')).default,
+              }),
+            },
+            {
+              path: Routes.TASKS,
+              lazy: async () => ({
+                Component: (await import('./pages/tasks')).default,
+              }),
+            },
 
-  // Error routes
-  { path: Routes.ERROR.GENERAL, Component: GeneralError },
-  { path: Routes.ERROR.NOT_FOUND, Component: NotFoundError },
-  { path: Routes.ERROR.MAINTENANCE, Component: MaintenanceError },
+            {
+              path: Routes.SETTINGS.ROOT,
+              lazy: async () => ({
+                Component: (await import('./pages/settings')).default,
+              }),
+              errorElement: <GeneralError />,
+              children: [
+                {
+                  index: true,
+                  lazy: async () => ({
+                    Component: (await import('./pages/settings/profile'))
+                      .default,
+                  }),
+                },
+                {
+                  path: Routes.SETTINGS.ACCOUNT,
+                  lazy: async () => ({
+                    Component: (await import('./pages/settings/account'))
+                      .default,
+                  }),
+                },
+              ],
+            },
+          ],
+        },
 
-  // Fallback 404 route
-  { path: Routes.FALLBACK, Component: NotFoundError },
-])
+        // Error routes
+        { path: Routes.ERROR.GENERAL, Component: GeneralError },
+        { path: Routes.ERROR.NOT_FOUND, Component: NotFoundError },
+        { path: Routes.ERROR.MAINTENANCE, Component: MaintenanceError },
+
+        // Fallback 404 route
+        { path: Routes.FALLBACK, Component: NotFoundError },
+      ]),
+    [isLoggedIn]
+  )
+
+  return <RouterProvider router={routers} />
+}
 
 const Router: FC = () => {
   const { login, logout, isLoggedIn, refreshToken } = useAuth()
   const { isLoading } = useQuery<Promise<boolean>>({
-    queryKey: ['user'],
+    queryKey: ['user', isLoggedIn],
     queryFn: async () => {
       if (isLoggedIn) {
         try {
-          const { accessToken } = await authService.getAccessToken(refreshToken)
+          const {
+            data: { access },
+          } = await authService.getAccessToken(refreshToken)
 
-          tokenService.setAccessToken(accessToken)
+          tokenStore.setAccessToken(access)
           const user = await authService.getUserInfo()
           login(user)
         } catch {
@@ -116,7 +143,7 @@ const Router: FC = () => {
     return <Loader />
   }
 
-  return <RouterProvider router={routers} />
+  return <Setup />
 }
 
 export default Router

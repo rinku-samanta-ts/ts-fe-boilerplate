@@ -43,7 +43,11 @@
 
 ### `models/`
 
-- **`user.model.ts`**: Defines the structure for user data include the request type and response type.
+- **`user.model.ts`**: Defines the structure for user data include the response type.
+
+### `validations/`
+
+- Contains validations schema written using zod.
 
 ### `store/`
 

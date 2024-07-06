@@ -1,7 +1,6 @@
-import { LoginRequest } from '@/models/user.model'
-import tokenService from '@/store/token'
+import { tokenStore } from '@/store/token'
 
-type RequestBody = undefined | Record<string, string> | FormData | LoginRequest
+type RequestBody = undefined | Record<string, unknown> | FormData
 
 class ApiService {
   private baseUrl: string
@@ -23,7 +22,7 @@ class ApiService {
       headers: mainHeader, // Set headers initially
     }
 
-    const token = tokenService.getAccessToken()
+    const token = tokenStore.getAccessToken()
     mainHeader.set('Content-Type', `application/json`)
 
     if (token) {
@@ -44,6 +43,7 @@ class ApiService {
       const response = await fetch(url, options)
       return response.json()
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('API request error:', error)
       throw error
     }
