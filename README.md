@@ -18,5 +18,3 @@ Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and a
 - [Getting Started](docs/GETTING_STARTED.md)
 - [Code Standards](docs/STANDARDS.md)
 - [Project Structure](docs/STRUCTURE.md)
-
-

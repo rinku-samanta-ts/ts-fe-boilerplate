@@ -4,10 +4,7 @@ import path from 'path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [
-    react(),
-    ValidateEnv(),
-  ],
+  plugins: [react(), ValidateEnv()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
