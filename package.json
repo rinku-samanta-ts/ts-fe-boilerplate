@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint-staged": "lint-staged",
     "validate-branch": "validate-branch-name",
     "release": "standard-version"
