@@ -49,6 +49,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
+    "date-fns": "^3.6.0",
     "dayjs": "^1.11.10",
     "jotai": "^2.8.4",
     "react": "^18.2.0",
@@ -65,8 +66,8 @@
     "zod": "^3.22.4"
   },
   "validate-branch-name": {
-    "pattern": "^(master|develop){1}$|^(feature|fix|hotfix|release)/.+$",
-    "errorMsg": "Invalid branch name. Branch names must start with 'master/' or 'develop/' for main branches, or 'feature/', 'fix/', 'hotfix/', or 'release/' for feature branches."
+    "pattern": "^(main|develop){1}$|^(feature|fix|hotfix|release)/.+$",
+    "errorMsg": "Invalid branch name. Branch names must start with 'main/' or 'develop/' for main branches, or 'feature/', 'fix/', 'hotfix/', or 'release/' for feature branches."
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
