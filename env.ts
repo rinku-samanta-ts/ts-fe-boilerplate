@@ -13,7 +13,6 @@ export const schema = {
   VITE_COOKIE_BASED_AUTHENTICATION: z.preprocess((value) => {
       return value === 'true'
   }, z.boolean()), // You can also preprocess the value
-  VITE_HELLO: z.string().default('Hello World!'), // You can also set default values
 };
 
 
