@@ -28,7 +28,7 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
   })
 
   function onSubmit() {
-  // data: ForgotPasswordRequest
+    // data: ForgotPasswordRequest
     setIsLoading(true)
 
     setTimeout(() => {

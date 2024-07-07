@@ -12,7 +12,6 @@ import { Input } from '@/components/ui/input'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
-
 export default function ExtraComponents() {
   const items = [
     { title: 'Extra Components', href: '/extra-components' },
