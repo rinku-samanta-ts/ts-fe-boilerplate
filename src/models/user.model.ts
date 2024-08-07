@@ -1,10 +1,11 @@
-import { GenericResponse } from './generic'
 import { TableState } from '@/hooks/use-table-state'
+import { GenericResponse } from './generic'
 
 export interface User {
   id: number
   username: string
   email: string
+  role: string
 }
 
 export type LoginResponse = GenericResponse<{
@@ -24,9 +25,13 @@ export interface Access {
 
 export type GenerateNewTokenResponse = GenericResponse<Tokens>
 
-export type UsersRequest = TableState
+export type UsersRequest = TableState<UserFilter>
 
 export type UserResponse = GenericResponse<{
   users: User[]
   count: number
 }>
+export type UserFilter = {
+  role: string[]
+  search: string
+}

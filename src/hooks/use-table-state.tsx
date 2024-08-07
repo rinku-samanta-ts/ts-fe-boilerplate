@@ -1,20 +1,22 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { PaginationState, SortingState } from '@tanstack/react-table'
 
-export interface TableState {
+export interface TableState<TFilter extends object = Record<string, unknown>> {
   pagination: PaginationState
   sorting?: {
     field: string
     order: string
   }
-  search: string | undefined
+  filter?: TFilter
 }
 
-interface UseTableStateProps {
-  initialState: TableState
+interface UseTableStateProps<TFilter extends object = Record<string, unknown>> {
+  initialState: TableState<TFilter>
 }
 
-const useTableState = ({ initialState }: UseTableStateProps) => {
+const useTableState = <TFilter extends object = Record<string, unknown>>({
+  initialState,
+}: UseTableStateProps<TFilter>) => {
   let initialSorting: SortingState = []
   if (initialState.sorting) {
     initialSorting = [
@@ -29,41 +31,60 @@ const useTableState = ({ initialState }: UseTableStateProps) => {
   const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.pagination
   )
-  const [searchTerm, setSearchTerm] = useState<string | undefined>(
-    initialState.search
+
+  const [filterState, setFilterState] = useState<TFilter>(
+    initialState.filter ?? ({} as TFilter)
   )
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value ?? undefined)
+  const handleFilterChange = (newFilter: TFilter) => {
+    setFilterState(newFilter)
     setPaginationState({
       pageIndex: 0,
       pageSize: paginationState.pageSize,
     })
   }
 
-  const resetTableState = () => {
-    setSortingState(initialSorting)
-    setPaginationState(initialState.pagination)
-    setSearchTerm(initialState.search)
+  const resetFilters = () => {
+    setFilterState(initialState.filter ?? ({} as TFilter))
+    setPaginationState({
+      pageIndex: 0,
+      pageSize: paginationState.pageSize,
+    })
+  }
+
+  const canReset = () => {
+    // Check if filter has any keys and whether those keys have values
+    const hasFilterKeys = Object.keys(filterState).length > 0
+
+    const hasFilterValues = Object.values(filterState).some((value) => {
+      // Check for empty arrays
+      if (Array.isArray(value) && value.length === 0) {
+        return false
+      }
+      // Check for non-empty values
+      return value !== '' && value !== null && value !== undefined
+    })
+
+    return hasFilterKeys && hasFilterValues
   }
 
   const getTableState = () => ({
     pagination: paginationState,
     sorting: {
       data: sortingState,
-      order:
-        sortingState.length > 0 ? (sortingState[0].desc ? 'desc' : 'asc') : '',
+      order: sortingState.length > 0 ? (sortingState[0].desc ? '' : 'asc') : '',
       field: sortingState.length > 0 ? sortingState[0].id : '',
     },
-    search: searchTerm,
+    filter: filterState,
   })
 
   return {
     tableState: getTableState(),
     handleSortChange: setSortingState,
     handlePaginationChange: setPaginationState,
-    handleSearchChange,
-    resetTableState,
+    handleFilterChange,
+    resetFilters,
+    canReset,
   }
 }
 
