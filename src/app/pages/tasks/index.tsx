@@ -5,13 +5,18 @@ import { UserNav } from '@/components/user-nav'
 import { DataTable } from './components/data-table'
 import { columns } from './components/columns'
 import { tasks } from './data/tasks'
+import { useState } from 'react'
 
 export default function Tasks() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(event.target.value)
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
       <Layout.Header sticky>
-        <Search />
+        <Search searchTerm={searchTerm} onChange={handleSearch} />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />

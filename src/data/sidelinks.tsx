@@ -2,6 +2,7 @@ import {
   IconChecklist,
   IconLayoutDashboard,
   IconSettings,
+  IconUserCircle,
 } from '@tabler/icons-react'
 
 export interface NavLink {
@@ -21,6 +22,12 @@ export const sidelinks: SideLink[] = [
     label: '',
     href: '/',
     icon: <IconLayoutDashboard size={18} />,
+  },
+  {
+    title: 'Users',
+    label: '',
+    href: '/users',
+    icon: <IconUserCircle size={18} />,
   },
   {
     title: 'Tasks',

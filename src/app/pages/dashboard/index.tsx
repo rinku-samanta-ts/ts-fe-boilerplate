@@ -13,15 +13,20 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
+import { useState } from 'react'
 
 export default function Dashboard() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(event.target.value)
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
       <Layout.Header>
         {/* <TopNav links={topNav} /> */}
         <div className='ml-auto flex items-center space-x-4'>
-          <Search />
+          <Search searchTerm={searchTerm} onChange={handleSearch} />
           <ThemeSwitch />
           <UserNav />
         </div>

@@ -6,13 +6,18 @@ import { Separator } from '@/components/ui/separator'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import SidebarNav from './components/sidebar-nav'
+import { useState } from 'react'
 
 export default function Settings() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(event.target.value)
+
   return (
     <Layout fixed>
       {/* ===== Top Heading ===== */}
       <Layout.Header>
-        <Search />
+        <Search searchTerm={searchTerm} onChange={handleSearch} />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />
