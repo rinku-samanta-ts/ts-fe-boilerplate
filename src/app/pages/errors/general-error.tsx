@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useRouteError } from 'react-router-dom'
 import { Button } from '@/components/custom/button'
 import { cn } from '@/lib/utils'
 
@@ -9,8 +9,11 @@ interface GeneralErrorProps extends React.HTMLAttributes<HTMLDivElement> {
 export default function GeneralError({
   className,
   minimal = false,
-}: GeneralErrorProps) {
+}: Readonly<GeneralErrorProps>) {
   const navigate = useNavigate()
+  const error = useRouteError()
+  // eslint-disable-next-line no-console
+  console.error(error) // displaying the actual errors in console
   return (
     <div className={cn('h-svh w-full', className)}>
       <div className='m-auto flex h-full w-full flex-col items-center justify-center gap-2'>

@@ -6,6 +6,27 @@ export const mockUser = {
   email: 'test@test.com',
 }
 
+export const mockGenerateNewTokenResponse = {
+  data: {
+    access: {
+      token: 'access-token',
+      expires: new Date(),
+    },
+  },
+  message: '',
+  status: 200,
+}
+export const mockLoginResponse = {
+  data: {
+    user: mockUser,
+    tokens: {
+      access: mockGenerateNewTokenResponse.data.access,
+      refresh: mockGenerateNewTokenResponse.data.access,
+    },
+  },
+  message: 'Login successful',
+  status: 200,
+}
 const mockUsers = [
   { id: 1, username: 'john doe', email: 'john.doe@example.com' },
   { id: 2, username: 'jane smith', email: 'jane.smith@example.com' },
@@ -49,20 +70,21 @@ const mockUsers = [
 
 const filterAndSortUsers = (request: UsersRequest) => {
   let filteredUsers = [...mockUsers]
+  const { search, sorting } = request
 
   // Search
-  if (request.search) {
+  if (search) {
     filteredUsers = filteredUsers.filter(
       (user) =>
-        user.username.includes(request.search as string) ||
-        user.email.includes(request.search as string)
+        user.username.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.toLowerCase().includes(search.toLowerCase())
     )
   }
 
   // Sorting
-  if (request.sorting?.field && request.sorting.order) {
-    const sortField = request.sorting.field as keyof User
-    const sortOrder = request.sorting.order
+  if (sorting?.field && sorting.order) {
+    const sortField = sorting.field as keyof User
+    const sortOrder = sorting.order
     filteredUsers.sort((a, b) => {
       if (sortField === 'id') {
         return sortOrder === 'desc' ? b.id - a.id : a.id - b.id

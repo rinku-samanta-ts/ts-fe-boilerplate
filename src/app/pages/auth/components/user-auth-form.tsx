@@ -1,4 +1,4 @@
-// import { authService } from '@/api'
+import { authService } from '@/api'
 import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import {
@@ -13,7 +13,6 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
-import { LoginResponse } from '@/models/user.model'
 import { Routes } from '@/utilities/routes'
 import { LoginRequest, loginSchema } from '@/validations/auth.validation'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -38,35 +37,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   })
 
   const mutation = useMutation({
-    mutationFn: async (d: LoginRequest) => {
-      const mockResponse: LoginResponse = {
-        data: {
-          user: {
-            id: 1,
-            username: 'John Doe',
-            email: d.email,
-          },
-          tokens: {
-            access: {
-              token: 'access-token',
-              expires: new Date(),
-            },
-            refresh: {
-              token: 'access-token',
-              expires: new Date(),
-            },
-          },
-        },
-        message: 'Login successful',
-        status: 200,
-      }
-      return mockResponse
-      // return authService.login(d)
-    },
+    mutationFn: async (data: LoginRequest) => authService.login(data),
     onSuccess: (response) => {
       let refreshToken = null
       if (!import.meta.env.VITE_COOKIE_BASED_AUTHENTICATION) {
-        refreshToken = response.data.tokens.refresh?.token || ''
+        refreshToken = response.data.tokens.refresh?.token ?? ''
       }
       login(response.data.user, refreshToken)
       setIsLoading(false)

@@ -10,6 +10,7 @@ import { useTableState } from '@/hooks/use-table-state'
 import DataTable from '@/components/ui/data-table'
 import { DataTableRowActions } from '@/components/ui/data-table-row-actions'
 import { DataTablePagination } from '@/components/ui/data-table-pagination'
+import { DataTableViewOptions } from '@/components/ui/data-table-view-options'
 
 const initialTableState = {
   pagination: {
@@ -74,13 +75,14 @@ export const UsersList = () => {
   return (
     <div>
       <div className='mb-3 flex flex-col items-center gap-2 md:flex-row'>
-        <p className='text-steelBlue text-base font-medium'>User List</p>
+        <Search
+          onChange={handleSearchChange}
+          searchTerm={tableState.search}
+          placeholder='Search User...'
+        />
         <div className='flex flex-row items-center gap-4 sm:flex-col md:ml-auto md:flex-row'>
-          <Search
-            onChange={handleSearchChange}
-            searchTerm={tableState.search}
-            placeholder='Search User...'
-          />
+          <DataTableViewOptions table={tableProps} />
+
           <Button className='rounded-lg px-8 py-4 text-base'>Add User</Button>
         </div>
       </div>

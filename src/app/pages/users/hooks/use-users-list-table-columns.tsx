@@ -17,11 +17,12 @@ const useUserListTableColumns = ({
         cell: (info) => info.getValue(),
         header: 'Id',
         enableSorting: true,
+        enableHiding: false,
       },
 
       {
-        accessorKey: 'username',
-        cell: (info) => info.getValue(),
+        accessorKey: 'name',
+        cell: ({ row: { original } }) => original.username,
         header: 'Name',
         enableSorting: true,
       },
@@ -36,6 +37,7 @@ const useUserListTableColumns = ({
         cell: ({ row: { original } }) => actionHandler(original),
         header: '',
         enableSorting: false,
+        enableHiding: false,
       },
     ],
     [actionHandler]
