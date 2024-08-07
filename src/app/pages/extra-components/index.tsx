@@ -13,6 +13,10 @@ import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 export default function ExtraComponents() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(event.target.value)
+
   const items = [
     { title: 'Extra Components', href: '/extra-components' },
     { title: 'Breadcrumb' },
@@ -38,7 +42,7 @@ export default function ExtraComponents() {
       {/* ===== Top Heading ===== */}
       <Layout.Header>
         <div className='ml-auto flex items-center space-x-4'>
-          <Search />
+          <Search searchTerm={searchTerm} onChange={handleSearch} />
           <ThemeSwitch />
           <UserNav />
         </div>

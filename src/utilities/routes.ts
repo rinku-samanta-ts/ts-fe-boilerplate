@@ -6,6 +6,7 @@ export const Routes = {
   OTP: '/otp',
   DASHBOARD: '/',
   TASKS: '/tasks',
+  USERS: '/users',
   SETTINGS: {
     ROOT: '/settings',
     ACCOUNT: '/settings/account',

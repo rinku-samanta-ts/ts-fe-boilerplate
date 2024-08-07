@@ -71,6 +71,12 @@ const Setup = () => {
               }),
             },
             {
+              path: Routes.USERS,
+              lazy: async () => ({
+                Component: (await import('./pages/users')).default,
+              }),
+            },
+            {
               path: Routes.TASKS,
               lazy: async () => ({
                 Component: (await import('./pages/tasks')).default,
