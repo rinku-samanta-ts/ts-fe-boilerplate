@@ -18,6 +18,7 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 import { roleOptions } from '@/data/options'
 import { UserForm } from './user-form'
 import { ConfirmationDialog } from '@/components/ui/confirmation-dialog'
+import { toast } from '@/components/ui/use-toast'
 
 const initialTableState = {
   pagination: {
@@ -44,7 +45,10 @@ export const UsersList = () => {
 
   const { mutate: deleteUser } = useMutation({
     mutationFn: (userId: number) => userService.deleteUser(userId),
-    onSuccess: () => {
+    onSuccess: (response) => {
+      toast({
+        title: response.message,
+      })
       queryClient.invalidateQueries({ queryKey: [QueryKeys.USER_LIST] })
     },
   })
