@@ -1,4 +1,4 @@
-import { User, UsersRequest } from '@/models/user.model'
+import { User, UserListRequest } from '@/models/user.model'
 import { UserAddOrUpdateRequest } from '@/validations/user.validation'
 
 export const mockUser = {
@@ -171,7 +171,7 @@ const mockUsers = [
   },
 ]
 
-const filterAndSortUsers = (request: UsersRequest) => {
+const filterAndSortUsers = (request: UserListRequest) => {
   let filteredUsers = [...mockUsers]
   const { sorting, filter } = request
 
@@ -219,7 +219,7 @@ const filterAndSortUsers = (request: UsersRequest) => {
   }
 }
 
-export const mockUsersResponse = (request: UsersRequest) => ({
+export const mockUsersResponse = (request: UserListRequest) => ({
   status: 200,
   message: 'Users retrieved successfully',
   data: filterAndSortUsers(request),
@@ -255,7 +255,7 @@ export const mockUserUpdateResponse = (
   }
 }
 
-export const mockUserDeleteResponse = (id: number) => {
+export const mockUserDeletionResponse = (id: number) => {
   const userIndex = mockUsers.findIndex((user) => user.id === id)
   mockUsers.splice(userIndex, 1)
   return {

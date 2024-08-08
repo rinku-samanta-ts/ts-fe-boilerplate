@@ -27,19 +27,19 @@ export interface Access {
 
 export type GenerateNewTokenResponse = GenericResponse<Tokens>
 
-export type UsersRequest = TableState<UserFilter>
+export type UserListRequest = TableState<UserListFilter>
 
-export type UserResponse = GenericResponse<{
+export type UserListResponse = GenericResponse<{
   users: User[]
   count: number
 }>
-export type UserFilter = {
+export type UserListFilter = {
   role: string[]
   search: string
 }
 
 export type UserAddOrUpdateResponse = GenericResponse<User>
-export type UserDeleteResponse = Pick<
+export type UserDeletionResponse = Pick<
   GenericResponse<unknown>,
   'status' | 'message'
 >

@@ -3,7 +3,7 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { useReactTable, getCoreRowModel } from '@tanstack/react-table'
 import { userService } from '@/api'
 import { useUserListTableColumns } from '../hooks/use-users-list-table-columns'
-import { User, UserFilter } from '@/models/user.model'
+import { User, UserListFilter } from '@/models/user.model'
 import { Button } from '@/components/custom/button'
 import { Search } from '@/components/search'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
@@ -60,7 +60,7 @@ export const UsersList = () => {
     handleFilterChange,
     resetFilters,
     canReset,
-  } = useTableState<UserFilter>({
+  } = useTableState<UserListFilter>({
     initialState: initialTableState,
   })
 

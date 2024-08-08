@@ -2,14 +2,14 @@ import {
   mockUsersResponse,
   mockUserUpdateResponse,
   mockUserAddResponse,
-  mockUserDeleteResponse,
+  mockUserDeletionResponse,
 } from '@/data/mock-response'
 import { apiService } from './api.service'
 import {
-  UserResponse,
-  UsersRequest,
+  UserListResponse,
+  UserListRequest,
   UserAddOrUpdateResponse,
-  UserDeleteResponse,
+  UserDeletionResponse,
 } from '@/models/user.model'
 import { UserAddOrUpdateRequest } from '@/validations/user.validation'
 
@@ -21,13 +21,13 @@ class UserService {
     this.api = apiService
   }
 
-  async getAllUsers(body: UsersRequest) {
-    return new Promise<UserResponse>((resolve) => {
+  async getAllUsers(body: UserListRequest) {
+    return new Promise<UserListResponse>((resolve) => {
       setTimeout(() => {
-        resolve(mockUsersResponse(body) as UserResponse)
+        resolve(mockUsersResponse(body) as UserListResponse)
       }, 500)
     })
-    return this.api.get<UserResponse>(
+    return this.api.get<UserListResponse>(
       `${this.controller}/all?page=${body.pagination.pageIndex}&perPage=${body.pagination.pageSize}`
     )
   }
@@ -53,13 +53,13 @@ class UserService {
   }
 
   async deleteUser(id: number) {
-    return new Promise<UserDeleteResponse>((resolve) => {
+    return new Promise<UserDeletionResponse>((resolve) => {
       setTimeout(() => {
-        resolve(mockUserDeleteResponse(id) as UserDeleteResponse)
+        resolve(mockUserDeletionResponse(id) as UserDeletionResponse)
       }, 500)
     })
     // Uncomment this to make the actual API call
-    // return this.api.delete<UserDeleteResponse>(`${this.controller}/${id}`)
+    // return this.api.delete<UserDeletionResponse>(`${this.controller}/${id}`)
   }
 }
 
