@@ -72,7 +72,8 @@ const useTableState = <TFilter extends object = Record<string, unknown>>({
     pagination: paginationState,
     sorting: {
       data: sortingState,
-      order: sortingState.length > 0 ? (sortingState[0].desc ? '' : 'asc') : '',
+      order:
+        sortingState.length > 0 ? (sortingState[0].desc ? 'desc' : 'asc') : '',
       field: sortingState.length > 0 ? sortingState[0].id : '',
     },
     filter: filterState,
