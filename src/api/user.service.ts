@@ -2,12 +2,14 @@ import {
   mockUsersResponse,
   mockUserUpdateResponse,
   mockUserAddResponse,
+  mockUserDeleteResponse,
 } from '@/data/mock-response'
 import { apiService } from './api.service'
 import {
   UserResponse,
   UsersRequest,
   UserAddOrUpdateResponse,
+  UserDeleteResponse,
 } from '@/models/user.model'
 import { UserAddOrUpdateRequest } from '@/validations/user.validation'
 
@@ -48,6 +50,16 @@ class UserService {
     })
     // Uncomment this to make the actual API call
     // return this.api.put<UserAddOrUpdateResponse>(`${this.controller}/update/${id}`, user)
+  }
+
+  async deleteUser(id: number) {
+    return new Promise<UserDeleteResponse>((resolve) => {
+      setTimeout(() => {
+        resolve(mockUserDeleteResponse(id) as UserDeleteResponse)
+      }, 500)
+    })
+    // Uncomment this to make the actual API call
+    // return this.api.delete<UserDeleteResponse>(`${this.controller}/${id}`)
   }
 }
 

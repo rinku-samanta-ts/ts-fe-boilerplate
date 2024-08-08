@@ -39,3 +39,7 @@ export type UserFilter = {
 }
 
 export type UserAddOrUpdateResponse = GenericResponse<User>
+export type UserDeleteResponse = Pick<
+  GenericResponse<unknown>,
+  'status' | 'message'
+>

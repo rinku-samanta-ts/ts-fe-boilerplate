@@ -62,13 +62,11 @@ export const UserForm: FC<UserFormProps> = ({
         ? userService.updateUser(initialData.id, data)
         : userService.addUser(data)
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
       toast({
-        title: initialData
-          ? 'User updated successfully!'
-          : 'User created successfully!',
+        title: response.message,
       })
-      form.reset(defaultValues)
+      resetForm()
       handleClose(true)
     },
     onError: () => {
@@ -88,8 +86,10 @@ export const UserForm: FC<UserFormProps> = ({
     mutation.mutate(data)
   }
 
+  const resetForm = () => form.reset(defaultValues)
+
   const handleOnOpenChange = () => {
-    form.reset(defaultValues)
+    resetForm()
     handleClose()
   }
 

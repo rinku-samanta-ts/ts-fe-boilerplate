@@ -254,3 +254,12 @@ export const mockUserUpdateResponse = (
     data: mockUsers[userIndex],
   }
 }
+
+export const mockUserDeleteResponse = (id: number) => {
+  const userIndex = mockUsers.findIndex((user) => user.id === id)
+  mockUsers.splice(userIndex, 1)
+  return {
+    status: 200,
+    message: 'User deleted successfully',
+  }
+}
