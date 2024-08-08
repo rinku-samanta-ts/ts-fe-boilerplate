@@ -42,8 +42,8 @@ export const UsersList = () => {
     setUserForm({ isOpen: true, user })
   }
 
-  const handleUserFormClose = (isValueUpdated?: boolean) => {
-    if (isValueUpdated) {
+  const handleUserFormClose = (hasChanges?: boolean) => {
+    if (hasChanges) {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.USER_LIST] })
     }
     setUserForm({ isOpen: false })
@@ -123,6 +123,7 @@ export const UsersList = () => {
             onChange={handleSearchChange}
             searchTerm={tableState.filter.search}
             placeholder='Search User...'
+            className='h-8'
           />
           <div className='flex gap-x-2'>
             <DataTableFilter
@@ -147,7 +148,7 @@ export const UsersList = () => {
             <Button
               variant='default'
               onClick={() => handleUserFormOpen()}
-              className='ms-2 h-8 px-2 lg:px-3'
+              className=' h-8 px-2 lg:px-3'
             >
               Add User
             </Button>

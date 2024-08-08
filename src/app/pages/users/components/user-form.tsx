@@ -36,7 +36,7 @@ import { roleOptions } from '@/data/options'
 
 interface UserFormProps {
   isOpen: boolean
-  handleClose: (isValueUpdated?: boolean) => void
+  handleClose: (hasChanges?: boolean) => void
   initialData?: User
 }
 
@@ -88,9 +88,15 @@ export const UserForm: FC<UserFormProps> = ({
     mutation.mutate(data)
   }
 
+  const handleOnOpenChange = () => {
+    form.reset(defaultValues)
+    handleClose()
+  }
+
   return (
-    <Dialog modal open={isOpen} onOpenChange={() => handleClose()}>
+    <Dialog modal open={isOpen} onOpenChange={handleOnOpenChange}>
       <DialogContent
+        aria-describedby='user-form-description'
         onInteractOutside={(event) => event.preventDefault()}
         className='w-80 rounded-xl px-4 sm:w-full sm:max-w-xl md:max-w-xl md:px-12'
       >
@@ -100,6 +106,11 @@ export const UserForm: FC<UserFormProps> = ({
           </DialogTitle>
         </DialogHeader>
         <div className='mt-4'>
+          <p id='user-form-description' className='sr-only'>
+            {initialData
+              ? 'Form to edit user details.'
+              : 'Form to add a new user.'}
+          </p>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className='grid gap-4'>
