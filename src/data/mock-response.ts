@@ -1,4 +1,5 @@
 import { User, UsersRequest } from '@/models/user.model'
+import { UserAddOrUpdateRequest } from '@/validations/user.validation'
 
 export const mockUser = {
   id: 1,
@@ -223,3 +224,33 @@ export const mockUsersResponse = (request: UsersRequest) => ({
   message: 'Users retrieved successfully',
   data: filterAndSortUsers(request),
 })
+
+export const mockUserAddResponse = (data: UserAddOrUpdateRequest) => {
+  const nextId = mockUsers.length
+    ? Math.max(...mockUsers.map((user) => user.id)) + 1
+    : 1
+  const newUser = { ...data, id: nextId }
+  mockUsers.push(newUser)
+
+  return {
+    status: 200,
+    message: 'Users retrieved successfully',
+    data: newUser,
+  }
+}
+
+export const mockUserUpdateResponse = (
+  id: number,
+  data: UserAddOrUpdateRequest
+) => {
+  // Find the user to update
+  const userIndex = mockUsers.findIndex((user) => user.id === id)
+
+  mockUsers[userIndex] = { ...mockUsers[userIndex], ...data }
+
+  return {
+    status: 200,
+    message: 'User updated successfully',
+    data: mockUsers[userIndex],
+  }
+}

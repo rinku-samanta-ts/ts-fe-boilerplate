@@ -1,11 +1,13 @@
 import { TableState } from '@/hooks/use-table-state'
 import { GenericResponse } from './generic'
 
+export type Role = 'admin' | 'user' | 'moderator' | 'guest'
+
 export interface User {
   id: number
   username: string
   email: string
-  role: string
+  role: Role
 }
 
 export type LoginResponse = GenericResponse<{
@@ -35,3 +37,5 @@ export type UserFilter = {
   role: string[]
   search: string
 }
+
+export type UserAddOrUpdateResponse = GenericResponse<User>
