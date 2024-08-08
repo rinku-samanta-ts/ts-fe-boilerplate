@@ -3,7 +3,7 @@ import {
   LoginResponse,
   User,
 } from '@/models/user.model'
-import { apiService } from './'
+import { apiService } from './api.service'
 import { SignupRequest, LoginRequest } from '@/validations/auth.validation'
 import {
   mockGenerateNewTokenResponse,
