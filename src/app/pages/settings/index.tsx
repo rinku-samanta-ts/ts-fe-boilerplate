@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import { IconTool, IconUser } from '@tabler/icons-react'
+import { IconHome, IconTool, IconUser } from '@tabler/icons-react'
 import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import { Separator } from '@/components/ui/separator'
@@ -7,12 +7,19 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import SidebarNav from './components/sidebar-nav'
 import { useState } from 'react'
+import { BreadcrumbNavigation } from '@/components/ui/breadcrumb-navigation'
 
 export default function Settings() {
   const [searchTerm, setSearchTerm] = useState('')
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
     setSearchTerm(event.target.value)
 
+  // demonstrate how we can use multiple sections
+  const breadcrumbItems = [
+    { href: '/', icon: <IconHome size={18} /> },
+    { href: '/', label: 'Dashboard' },
+    { label: 'Settings' },
+  ]
   return (
     <Layout fixed>
       {/* ===== Top Heading ===== */}
@@ -25,6 +32,9 @@ export default function Settings() {
       </Layout.Header>
 
       <Layout.Body className='flex flex-col'>
+        <div className='mb-2'>
+          <BreadcrumbNavigation items={breadcrumbItems} />
+        </div>
         <div className='space-y-0.5'>
           <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
             Settings
