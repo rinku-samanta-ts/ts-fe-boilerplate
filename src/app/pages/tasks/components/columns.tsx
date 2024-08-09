@@ -44,6 +44,11 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: 'title',
+    meta: {
+      filterColumn: {
+        title: 'Title',
+      },
+    },
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Title' />
     ),
