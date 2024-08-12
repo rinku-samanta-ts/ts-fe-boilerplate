@@ -1,7 +1,7 @@
 {
   "name": "admin",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -15,7 +15,7 @@
     "prepare": "husky",
     "lint-staged": "lint-staged",
     "validate-branch": "validate-branch-name",
-    "release": "standard-version"
+    "release": "commit-and-tag-version"
   },
   "lint-staged": {
     "src/**/*.{js,ts,jsx,tsx}": [
@@ -81,6 +81,7 @@
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react-swc": "^3.6.0",
     "autoprefixer": "^10.4.19",
+    "commit-and-tag-version": "^12.4.1",
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
@@ -89,7 +90,6 @@
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
-    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
