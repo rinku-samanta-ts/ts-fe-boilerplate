@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { PaginationState, SortingState } from '@tanstack/react-table'
 
-export interface TableState<TFilter extends object = Record<string, unknown>> {
+type Filter = Record<string, unknown>
+
+export interface TableState<TFilter extends Filter> {
   pagination: PaginationState
   sorting?: {
     field: string
@@ -10,11 +12,11 @@ export interface TableState<TFilter extends object = Record<string, unknown>> {
   filter?: TFilter
 }
 
-interface UseTableStateProps<TFilter extends object = Record<string, unknown>> {
+interface UseTableStateProps<TFilter extends Filter> {
   initialState: TableState<TFilter>
 }
 
-const useTableState = <TFilter extends object = Record<string, unknown>>({
+const useTableState = <TFilter extends Filter>({
   initialState,
 }: UseTableStateProps<TFilter>) => {
   let initialSorting: SortingState = []
