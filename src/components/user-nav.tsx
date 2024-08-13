@@ -34,9 +34,11 @@ export function UserNav() {
       <DropdownMenuContent className='w-56' align='end' forceMount>
         <DropdownMenuLabel className='font-normal'>
           <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>developer</p>
-            <p className='text-xs leading-none text-muted-foreground'>
-              developer@gmail.com
+            <p className='overflow-hidden truncate whitespace-nowrap text-sm font-medium leading-none'>
+              John Doe
+            </p>
+            <p className='overflow-hidden truncate whitespace-nowrap text-xs leading-none text-muted-foreground'>
+              john.doe@yopmail.com
             </p>
           </div>
         </DropdownMenuLabel>
