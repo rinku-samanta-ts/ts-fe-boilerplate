@@ -1,23 +1,15 @@
 import { FC } from 'react'
-import { useFormContext } from 'react-hook-form'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from './tooltip'
-import { IconInfoCircle, IconCheck, IconX } from '@tabler/icons-react'
+import { IconCheck, IconX } from '@tabler/icons-react'
 import { Regex } from '@/utilities/regex'
 
 interface PasswordIndicatorProps {
-  name: string
+  value: string
 }
 
-export const PasswordIndicator: FC<PasswordIndicatorProps> = ({ name }) => {
-  const { watch } = useFormContext()
+export const PasswordIndicator: FC<PasswordIndicatorProps> = ({ value }) => {
   const { UPPERCASE, LOWERCASE, NUMBER, SPECIAL_CHAR } = Regex
   const MIN_CHARACTER = 8
-  const password = watch(name, '') // Watch the field based on the `name` prop
+  const password = value ?? ''
 
   const calculatePasswordStrength = (password: string) => {
     let strength = 0
@@ -35,71 +27,74 @@ export const PasswordIndicator: FC<PasswordIndicatorProps> = ({ name }) => {
 
   const requirements = [
     {
-      text: `Must be minimum ${MIN_CHARACTER} characters`,
+      text: `At least ${MIN_CHARACTER} characters long`,
       check: password.length >= MIN_CHARACTER,
     },
     {
-      text: 'Must have at least 1 uppercase letter',
+      text: 'Includes at least 1 uppercase letter',
       check: UPPERCASE.test(password),
     },
     {
-      text: 'Must have at least 1 lowercase letter',
+      text: 'Includes at least 1 lowercase letter',
       check: LOWERCASE.test(password),
     },
-    { text: 'Must have at least 1 number', check: NUMBER.test(password) },
     {
-      text: 'Must have at least 1 special character',
+      text: 'Includes at least 1 number',
+      check: NUMBER.test(password),
+    },
+    {
+      text: 'Includes at least 1 special character',
       check: SPECIAL_CHAR.test(password),
     },
   ]
 
+  const getStrengthLabel = (strength: number) => {
+    if (strength < 2) return 'Weak password'
+    if (strength === 2) return 'Fair password'
+    return 'Strong password'
+  }
+
   return (
-    <div className='mt-1 flex items-center justify-between gap-4'>
-      <div className='flex max-w-[380px] flex-grow items-center justify-stretch space-x-1'>
-        {Array.from({ length: 5 }, (_, index) => {
-          const color =
-            index < strength
-              ? strength <= 2
-                ? 'bg-[#ff1744]'
-                : strength === 3
-                  ? 'bg-[#ffc400]'
-                  : 'bg-[#097837]'
-              : 'bg-gray-300/90'
-          return (
-            <div key={index} className={`h-1 w-full rounded-full ${color}`} />
-          )
-        })}
+    <div className='space-y-2'>
+      <div className='text-sm font-semibold text-gray-700'>
+        {getStrengthLabel(strength)}
       </div>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div>
-              <IconInfoCircle
-                size={16}
-                className='cursor-pointer text-gray-500'
+      <div className='mt-1 flex items-center gap-2'>
+        <div className='flex max-w-[380px] flex-grow items-center space-x-1'>
+          {Array.from({ length: 5 }, (_, index) => {
+            const color =
+              index < strength
+                ? strength <= 2
+                  ? index < 2
+                    ? 'bg-[#ff1744]' // Red for weak
+                    : 'bg-[#ff6d00]' // Orange for fair
+                  : strength === 3
+                    ? 'bg-[#ffc400]' // Yellow for medium
+                    : 'bg-[#097837]' // Green for strong
+                : 'bg-gray-300' // Gray for inactive
+            return (
+              <div
+                key={index}
+                className={`h-1 w-full rounded-full ${color}`}
+                aria-label={`Password strength level ${index + 1}`}
               />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent className='max-w-xs rounded-md bg-white py-2 shadow-lg'>
-            <ul className='list-disc space-y-2 pl-2 text-gray-700'>
-              {requirements.map((req, index) => (
-                <li key={index} className='flex items-center space-x-2'>
-                  {req.check ? (
-                    <IconCheck size={16} className='text-green-500' />
-                  ) : (
-                    <IconX size={16} className='text-red-500' />
-                  )}
-                  <span
-                    className={`text-gray-500 ${req.check ? 'line-through' : ''}`}
-                  >
-                    {req.text}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+            )
+          })}
+        </div>
+      </div>
+
+      <ul className='list-disc space-y-2 pl-2 text-gray-700'>
+        {requirements.map((req, index) => (
+          <li key={index} className='flex items-center space-x-2'>
+            {req.check ? (
+              <IconCheck size={16} className='text-green-500' />
+            ) : (
+              <IconX size={16} className='text-red-500' />
+            )}
+            <span className='text-sm text-gray-500 '>{req.text}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

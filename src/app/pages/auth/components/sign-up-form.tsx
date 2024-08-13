@@ -9,7 +9,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { PasswordIndicator } from '@/components/ui/password-indicator'
 import { cn } from '@/lib/utils'
 import { SignupRequest, signupSchema } from '@/validations/auth.validation'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -64,13 +63,16 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                 <FormItem className='space-y-1'>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <PasswordInput placeholder='********' {...field} />
+                    <PasswordInput
+                      showTooltip
+                      placeholder='********'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <PasswordIndicator name='password' />
             <FormField
               control={form.control}
               name='confirmPassword'
