@@ -1,13 +1,28 @@
+import { Regex } from '@/utilities/regex'
 import { z } from 'zod'
+const { UPPERCASE, LOWERCASE, NUMBER, SPECIAL_CHAR } = Regex
+
+const passwordValidation = z
+  .string()
+  .min(8, { message: 'Password must be at least 8 characters long' })
+  .regex(UPPERCASE, {
+    message: 'Password must include at least one uppercase letter',
+  })
+  .regex(LOWERCASE, {
+    message: 'Password must include at least one lowercase letter',
+  })
+  .regex(NUMBER, { message: 'Password must include at least one number' })
+  .regex(SPECIAL_CHAR, {
+    message: 'Password must include at least one special character',
+  })
+  .max(20, { message: 'Password must be no longer than 20 characters' })
+
 export const loginSchema = z.object({
   email: z
     .string()
     .min(1, { message: 'Please enter your email' })
     .email({ message: 'Invalid email address' }),
-  password: z
-    .string()
-    .min(1, { message: 'Please enter your password' })
-    .min(7, { message: 'Password must be at least 7 characters long' }),
+  password: passwordValidation,
 })
 
 export type LoginRequest = z.infer<typeof loginSchema>
@@ -18,14 +33,7 @@ export const signupSchema = z
       .string()
       .min(1, { message: 'Please enter your email' })
       .email({ message: 'Invalid email address' }),
-    password: z
-      .string()
-      .min(1, {
-        message: 'Please enter your password',
-      })
-      .min(7, {
-        message: 'Password must be at least 7 characters long',
-      }),
+    password: passwordValidation,
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
