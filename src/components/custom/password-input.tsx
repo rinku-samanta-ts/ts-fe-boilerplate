@@ -67,11 +67,19 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
                 </Button>
               </div>
             </TooltipTrigger>
-            <TooltipContent className='max-w-xs rounded-md bg-white py-2 shadow-lg'>
+            <TooltipContent
+              side='left'
+              className='hidden max-w-xs rounded-md bg-white py-2 shadow-lg md:block'
+            >
               <PasswordIndicator value={value as string} />
             </TooltipContent>
           </Tooltip>
         </div>
+        {tooltipVisible && (
+          <div className='block text-sm text-gray-500 md:hidden'>
+            <PasswordIndicator value={value as string} />
+          </div>
+        )}
       </TooltipProvider>
     )
   }

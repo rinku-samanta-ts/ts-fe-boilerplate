@@ -56,10 +56,10 @@ export const PasswordIndicator: FC<PasswordIndicatorProps> = ({ value }) => {
 
   return (
     <div className='space-y-2'>
-      <div className='text-sm font-semibold text-gray-700'>
+      <div className='hidden text-sm font-semibold text-gray-700 md:block'>
         {getStrengthLabel(strength)}
       </div>
-      <div className='mt-1 flex items-center gap-2'>
+      <div className=' mt-1  items-center gap-2'>
         <div className='flex max-w-[380px] flex-grow items-center space-x-1'>
           {Array.from({ length: 5 }, (_, index) => {
             const color =
@@ -83,7 +83,7 @@ export const PasswordIndicator: FC<PasswordIndicatorProps> = ({ value }) => {
         </div>
       </div>
 
-      <ul className='list-disc space-y-2 pl-2 text-gray-700'>
+      <ul className='hidden list-disc space-y-2 pl-2 text-gray-700 md:block'>
         {requirements.map((req, index) => (
           <li key={index} className='flex items-center space-x-2'>
             {req.check ? (
@@ -95,6 +95,10 @@ export const PasswordIndicator: FC<PasswordIndicatorProps> = ({ value }) => {
           </li>
         ))}
       </ul>
+      <span className='block text-sm text-gray-500 md:hidden'>
+        Password must contain at least 1 uppercase , 1 lowercase , 1 number, and
+        1 special character
+      </span>
     </div>
   )
 }
