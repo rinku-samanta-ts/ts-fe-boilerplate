@@ -14,11 +14,17 @@ import { UserNav } from '@/components/user-nav'
 import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
 import { useState } from 'react'
+import { BreadcrumbNavigation } from '@/components/ui/breadcrumb-navigation'
+import { IconHome } from '@tabler/icons-react'
 
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('')
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
     setSearchTerm(event.target.value)
+  const breadcrumbItems = [
+    { href: '/', icon: <IconHome size={18} /> },
+    { label: 'Dashboard' },
+  ]
 
   return (
     <Layout>
@@ -34,6 +40,8 @@ export default function Dashboard() {
 
       {/* ===== Main ===== */}
       <Layout.Body>
+        <BreadcrumbNavigation items={breadcrumbItems} />
+
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <h1 className='text-2xl font-bold tracking-tight'>Dashboard</h1>
           <div className='flex items-center space-x-2'>
