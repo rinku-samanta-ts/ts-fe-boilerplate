@@ -1,9 +1,12 @@
+import { roleOptions } from '@/data/options'
 import { z } from 'zod'
 
-const roles = ['admin', 'user', 'moderator', 'guest'] as const
-const roleSchema = z.enum(roles, {
+const roles = roleOptions.map((role) => role.value)
+
+const roleSchema = z.enum(roles as [(typeof roles)[number]], {
   errorMap: () => ({ message: 'Role is required' }),
 })
+
 export type Role = z.infer<typeof roleSchema>
 
 export const userSchema = z.object({
