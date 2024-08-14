@@ -15,14 +15,39 @@ import {
 } from '@/components/ui/select'
 import { Button } from '../custom/button'
 import { paginationOptions } from '@/data/options'
+import { useEffect } from 'react'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
+  isFetching: boolean
 }
 
 export function DataTablePagination<TData>({
   table,
+  isFetching,
 }: Readonly<DataTablePaginationProps<TData>>) {
+  useEffect(() => {
+    const { pageIndex } = table.getState().pagination
+    const pageCount = table.getPageCount()
+    const canPreviousPage = table.getCanPreviousPage()
+    const hasRecords = table.getRowModel().rows.length > 0
+
+    // If current page is empty and can go to previous page, go to the previous page
+    if (
+      !hasRecords &&
+      canPreviousPage &&
+      pageCount <= pageIndex + 1 &&
+      !isFetching
+    ) {
+      table.previousPage()
+    }
+  }, [
+    table.getState().pagination.pageIndex,
+    table.getPageCount(),
+    table.getCanPreviousPage(),
+    table.getRowModel().rows.length,
+  ])
+
   return (
     <div className='flex items-center justify-between overflow-auto px-2'>
       <div className='hidden flex-1 text-sm text-muted-foreground sm:block'></div>

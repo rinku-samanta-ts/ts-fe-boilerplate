@@ -1,15 +1,18 @@
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 import { ChangeEvent, FC } from 'react'
 interface SearchProps {
   searchTerm: string | undefined
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
+  className?: string
 }
 
 export const Search: FC<SearchProps> = ({
   searchTerm,
   onChange,
   placeholder,
+  className,
 }) => {
   return (
     <div>
@@ -18,7 +21,7 @@ export const Search: FC<SearchProps> = ({
         onChange={onChange}
         type='search'
         placeholder={placeholder ?? 'Search...'}
-        className='md:w-[100px] lg:w-[300px]'
+        className={cn('md:w-[100px] lg:w-[300px]', className)}
       />
     </div>
   )

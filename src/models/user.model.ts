@@ -1,10 +1,12 @@
-import { GenericResponse } from './generic'
 import { TableState } from '@/hooks/use-table-state'
+import { GenericResponse } from './generic'
+import { Role } from '@/validations/user.validation'
 
 export interface User {
   id: number
   username: string
   email: string
+  role: Role
 }
 
 export type LoginResponse = GenericResponse<{
@@ -24,9 +26,19 @@ export interface Access {
 
 export type GenerateNewTokenResponse = GenericResponse<Tokens>
 
-export type UsersRequest = TableState
+export type UserListRequest = TableState<UserListFilter>
 
-export type UserResponse = GenericResponse<{
+export type UserListResponse = GenericResponse<{
   users: User[]
   count: number
 }>
+export type UserListFilter = {
+  role: Role[]
+  search: string
+}
+
+export type UserAddOrUpdateResponse = GenericResponse<User>
+export type UserDeletionResponse = Pick<
+  GenericResponse<unknown>,
+  'status' | 'message'
+>

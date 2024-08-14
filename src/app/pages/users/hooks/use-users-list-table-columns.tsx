@@ -33,6 +33,12 @@ const useUserListTableColumns = ({
         enableSorting: true,
       },
       {
+        accessorKey: 'role',
+        cell: (info) => info.getValue(),
+        header: 'Role',
+        enableSorting: true,
+      },
+      {
         accessorKey: 'actions',
         cell: ({ row: { original } }) => actionHandler(original),
         header: '',
