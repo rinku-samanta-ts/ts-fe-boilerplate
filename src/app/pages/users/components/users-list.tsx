@@ -19,7 +19,7 @@ import { roleOptions } from '@/data/options'
 import { UserForm } from './user-form'
 import { ConfirmationDialog } from '@/components/ui/confirmation-dialog'
 import { toast } from '@/components/ui/use-toast'
-import { Role } from '@/validations/user.validation'
+import { Roles } from '@/validations/user.validation'
 
 const initialTableState = {
   pagination: {
@@ -129,7 +129,7 @@ export const UsersList = () => {
   }
 
   const handleRoleChange = (newSelectedValues: string[]) => {
-    const role = newSelectedValues as Role[]
+    const role = newSelectedValues as Roles[]
     handleFilterChange({
       ...tableState.filter,
       role,
