@@ -29,7 +29,7 @@ export const mockLoginResponse = {
   message: 'Login successful',
   status: 200,
 }
-const mockUsers = [
+const mockUsers: User[] = [
   { id: 1, username: 'john doe', email: 'john.doe@example.com', role: 'admin' },
   {
     id: 2,

@@ -26,8 +26,8 @@ interface DataTableFilterProps {
     value: string
     icon?: React.ComponentType<{ className?: string }>
   }[]
-  selectedValues: string[] // Changed from Set<string> to string[]
-  onChange: (selectedValues: string[]) => void // Changed from Set<string> to string[]
+  selectedValues: string[]
+  onChange: (selectedValues: string[]) => void
 }
 
 export function DataTableFilter({

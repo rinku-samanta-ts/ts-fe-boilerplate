@@ -1,6 +1,10 @@
 import { z } from 'zod'
 
-export const roleValues = ['admin', 'user', 'moderator', 'guest'] as const
+const roles = ['admin', 'user', 'moderator', 'guest'] as const
+const roleSchema = z.enum(roles, {
+  errorMap: () => ({ message: 'Role is required' }),
+})
+export type Role = z.infer<typeof roleSchema>
 
 export const userSchema = z.object({
   username: z
@@ -15,9 +19,7 @@ export const userSchema = z.object({
     .string()
     .min(1, { message: 'Please enter your email' })
     .email({ message: 'Invalid email address' }),
-  role: z.enum(roleValues, {
-    errorMap: () => ({ message: 'Role is required' }),
-  }),
+  role: roleSchema,
 })
 
 export type UserAddOrUpdateRequest = z.infer<typeof userSchema>
