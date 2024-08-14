@@ -1,12 +1,28 @@
 import { User, UserListRequest } from '@/models/user.model'
-import { UserAddOrUpdateRequest } from '@/validations/user.validation'
+import {
+  UserAddOrUpdateRequest,
+  userSchema,
+} from '@/validations/user.validation'
+import { generateMock } from '@anatine/zod-mock'
+import { faker } from '@faker-js/faker'
+import { z } from 'zod'
 
-export const mockUser = {
-  id: 1,
-  username: 'John Doe',
-  email: 'test@test.com',
-  role: 'user',
+export const generateMockUser = () =>
+  generateMock(
+    userSchema.extend({
+      id: z.string().uuid(),
+    })
+  )
+
+const generateMockUsers = () => {
+  const users = []
+  for (let i = 0; i < 23; i++) {
+    users.push(generateMockUser())
+  }
+  return users
 }
+
+export const mockUser = generateMockUser()
 
 export const mockGenerateNewTokenResponse = {
   data: {
@@ -29,147 +45,8 @@ export const mockLoginResponse = {
   message: 'Login successful',
   status: 200,
 }
-const mockUsers: User[] = [
-  { id: 1, username: 'john doe', email: 'john.doe@example.com', role: 'admin' },
-  {
-    id: 2,
-    username: 'jane smith',
-    email: 'jane.smith@example.com',
-    role: 'user',
-  },
-  {
-    id: 3,
-    username: 'alice johnson',
-    email: 'alice.johnson@example.com',
-    role: 'moderator',
-  },
-  {
-    id: 4,
-    username: 'bob brown',
-    email: 'bob.brown@example.com',
-    role: 'admin',
-  },
-  {
-    id: 5,
-    username: 'lisa white',
-    email: 'lisa.white@example.com',
-    role: 'user',
-  },
-  {
-    id: 6,
-    username: 'mike jones',
-    email: 'mike.jones@example.com',
-    role: 'guest',
-  },
-  {
-    id: 7,
-    username: 'carlos davis',
-    email: 'carlos.davis@example.com',
-    role: 'moderator',
-  },
-  {
-    id: 8,
-    username: 'david miller',
-    email: 'david.miller@example.com',
-    role: 'user',
-  },
-  {
-    id: 9,
-    username: 'susan wilson',
-    email: 'susan.wilson@example.com',
-    role: 'guest',
-  },
-  {
-    id: 10,
-    username: 'chris lee',
-    email: 'chris.lee@example.com',
-    role: 'admin',
-  },
-  {
-    id: 11,
-    username: 'nancy kim',
-    email: 'nancy.kim@example.com',
-    role: 'user',
-  },
-  {
-    id: 12,
-    username: 'steve clark',
-    email: 'steve.clark@example.com',
-    role: 'moderator',
-  },
-  {
-    id: 13,
-    username: 'angela brown',
-    email: 'angela.brown@example.com',
-    role: 'user',
-  },
-  {
-    id: 14,
-    username: 'tom scott',
-    email: 'tom.scott@example.com',
-    role: 'guest',
-  },
-  {
-    id: 15,
-    username: 'linda taylor',
-    email: 'linda.taylor@example.com',
-    role: 'admin',
-  },
-  {
-    id: 16,
-    username: 'paul martinez',
-    email: 'paul.martinez@example.com',
-    role: 'moderator',
-  },
-  {
-    id: 17,
-    username: 'emma johnson',
-    email: 'emma.johnson@example.com',
-    role: 'user',
-  },
-  {
-    id: 18,
-    username: 'gregory wilson',
-    email: 'gregory.wilson@example.com',
-    role: 'guest',
-  },
-  {
-    id: 19,
-    username: 'kate green',
-    email: 'kate.green@example.com',
-    role: 'user',
-  },
-  {
-    id: 20,
-    username: 'jason adams',
-    email: 'jason.adams@example.com',
-    role: 'admin',
-  },
-  {
-    id: 21,
-    username: 'olivia king',
-    email: 'olivia.king@example.com',
-    role: 'guest',
-  },
-  {
-    id: 22,
-    username: 'matthew young',
-    email: 'matthew.young@example.com',
-    role: 'user',
-  },
-  {
-    id: 23,
-    username: 'isabella mitchell',
-    email: 'isabella.mitchell@example.com',
-    role: 'moderator',
-  },
-  {
-    id: 24,
-    username: 'noah cooper',
-    email: 'noah.cooper@example.com',
-    role: 'guest',
-  },
-]
+
+const mockUsers: User[] = generateMockUsers()
 
 const filterAndSortUsers = (request: UserListRequest) => {
   let filteredUsers = [...mockUsers]
@@ -198,13 +75,9 @@ const filterAndSortUsers = (request: UserListRequest) => {
 
     const sortOrder = sorting.order
     filteredUsers.sort((a, b) => {
-      if (sortField === 'id') {
-        return sortOrder === 'desc' ? b.id - a.id : a.id - b.id
-      } else {
-        return sortOrder === 'desc'
-          ? b[sortField].localeCompare(a[sortField])
-          : a[sortField].localeCompare(b[sortField])
-      }
+      return sortOrder === 'desc'
+        ? b[sortField].localeCompare(a[sortField])
+        : a[sortField].localeCompare(b[sortField])
     })
   }
 
@@ -226,10 +99,7 @@ export const mockUsersResponse = (request: UserListRequest) => ({
 })
 
 export const mockUserAddResponse = (data: UserAddOrUpdateRequest) => {
-  const nextId = mockUsers.length
-    ? Math.max(...mockUsers.map((user) => user.id)) + 1
-    : 1
-  const newUser = { ...data, id: nextId }
+  const newUser = { ...data, id: faker.string.uuid() }
   mockUsers.push(newUser)
 
   return {
@@ -240,7 +110,7 @@ export const mockUserAddResponse = (data: UserAddOrUpdateRequest) => {
 }
 
 export const mockUserUpdateResponse = (
-  id: number,
+  id: string,
   data: UserAddOrUpdateRequest
 ) => {
   // Find the user to update
@@ -255,7 +125,7 @@ export const mockUserUpdateResponse = (
   }
 }
 
-export const mockUserDeletionResponse = (id: number) => {
+export const mockUserDeletionResponse = (id: string) => {
   const userIndex = mockUsers.findIndex((user) => user.id === id)
   mockUsers.splice(userIndex, 1)
   return {

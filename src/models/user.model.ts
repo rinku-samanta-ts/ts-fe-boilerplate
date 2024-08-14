@@ -3,7 +3,7 @@ import { GenericResponse } from './generic'
 import { Role } from '@/validations/user.validation'
 
 export interface User {
-  id: number
+  id: string
   username: string
   email: string
   role: Role

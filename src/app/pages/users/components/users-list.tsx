@@ -45,7 +45,7 @@ export const UsersList = () => {
   }>({ isOpen: false })
 
   const { mutate: deleteUser } = useMutation({
-    mutationFn: (userId: number) => userService.deleteUser(userId),
+    mutationFn: (userId: string) => userService.deleteUser(userId),
     onSuccess: (response) => {
       toast({
         title: response.message,
