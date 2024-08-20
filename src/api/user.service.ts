@@ -25,7 +25,7 @@ class UserService {
     return new Promise<UserListResponse>((resolve) => {
       setTimeout(() => {
         resolve(mockUsersResponse(body) as UserListResponse)
-      }, 500)
+      }, 2000)
     })
     return this.api.get<UserListResponse>(
       `${this.controller}/all?page=${body.pagination.pageIndex}&perPage=${body.pagination.pageSize}`

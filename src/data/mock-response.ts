@@ -263,3 +263,26 @@ export const mockUserDeletionResponse = (id: number) => {
     message: 'User deleted successfully',
   }
 }
+
+export const mockAnalyticsResponse = {
+  status: 200,
+  message: 'Analytics fetched successfully',
+  data: {
+    totalRevenue: {
+      value: '$45,231.89',
+      percentageChange: '+20.1% from last month',
+    },
+    subscriptions: {
+      value: '+2350',
+      percentageChange: '+180.1% from last month',
+    },
+    sales: {
+      value: '+12,234',
+      percentageChange: '+19% from last month',
+    },
+    activeNow: {
+      value: '+573',
+      percentageChange: '+201 since last hour',
+    },
+  },
+}
