@@ -1,11 +1,17 @@
 import {
+  ChangePasswordResponse,
   GenerateNewTokenResponse,
   LoginResponse,
   User,
 } from '@/models/user.model'
 import { apiService } from './api.service'
-import { SignupRequest, LoginRequest } from '@/validations/auth.validation'
 import {
+  SignupRequest,
+  LoginRequest,
+  ChangePasswordRequest,
+} from '@/validations/auth.validation'
+import {
+  mockChangePasswordResponse,
   mockGenerateNewTokenResponse,
   mockLoginResponse,
   mockUser,
@@ -42,6 +48,14 @@ class AuthService {
   async getUserInfo(): Promise<User> {
     return Promise.resolve(mockUser as User)
     return this.api.get<User>(`${this.controller}/me`)
+  }
+
+  async changePassword(body: ChangePasswordRequest) {
+    return Promise.resolve(mockChangePasswordResponse as ChangePasswordResponse)
+    return this.api.post<ChangePasswordResponse>(
+      `${this.controller}/change-password`,
+      body
+    )
   }
 }
 

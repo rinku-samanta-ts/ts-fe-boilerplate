@@ -82,29 +82,11 @@ const Setup = () => {
                 Component: (await import('./pages/tasks')).default,
               }),
             },
-
             {
-              path: Routes.SETTINGS.ROOT,
+              path: Routes.PROFILE,
               lazy: async () => ({
-                Component: (await import('./pages/settings')).default,
+                Component: (await import('./pages/profile')).default,
               }),
-              errorElement: <GeneralError />,
-              children: [
-                {
-                  index: true,
-                  lazy: async () => ({
-                    Component: (await import('./pages/settings/profile'))
-                      .default,
-                  }),
-                },
-                {
-                  path: Routes.SETTINGS.ACCOUNT,
-                  lazy: async () => ({
-                    Component: (await import('./pages/settings/account'))
-                      .default,
-                  }),
-                },
-              ],
             },
           ],
         },

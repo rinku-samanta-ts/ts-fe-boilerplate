@@ -15,12 +15,13 @@ import { useAuth } from '@/hooks/use-auth'
 import { Routes } from '@/utilities/routes'
 
 export function UserNav() {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   const navigate = useNavigate()
   const handleLogout = () => {
     logout()
     navigate(Routes.SIGN_IN)
   }
+  const goToProfile = () => navigate(Routes.PROFILE)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,18 +36,16 @@ export function UserNav() {
         <DropdownMenuLabel className='font-normal'>
           <div className='flex flex-col space-y-1'>
             <p className='overflow-hidden truncate whitespace-nowrap text-sm font-medium leading-none'>
-              John Doe
+              {user?.username}
             </p>
             <p className='overflow-hidden truncate whitespace-nowrap text-xs leading-none text-muted-foreground'>
-              john.doe@yopmail.com
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile </DropdownMenuItem>
-
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem onClick={goToProfile}>Profile </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
