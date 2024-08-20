@@ -16,9 +16,7 @@ class DashboardService {
         resolve(mockAnalyticsResponse as AnalyticDataResponse)
       }, 3000)
     })
-    return this.api.get<AnalyticDataResponse>(
-      `${this.controller}/dashboard/analytics`
-    )
+    return this.api.get<AnalyticDataResponse>(`${this.controller}/analytics`)
   }
 }
 
