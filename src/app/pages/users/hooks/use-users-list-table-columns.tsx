@@ -16,7 +16,7 @@ const useUserListTableColumns = ({
         accessorKey: 'id',
         cell: (info) => info.getValue(),
         header: 'Id',
-        enableSorting: true,
+        enableSorting: false,
         enableHiding: false,
       },
 

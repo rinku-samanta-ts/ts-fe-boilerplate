@@ -7,6 +7,6 @@ export const roleOptions: {
 }[] = [
   { label: 'Admin', value: Roles.ADMIN },
   { label: 'User', value: Roles.USER },
-  { label: 'Moderator', value: Roles.USER },
+  { label: 'Moderator', value: Roles.MODERATOR },
   { label: 'Guest', value: Roles.GUEST },
 ] as const

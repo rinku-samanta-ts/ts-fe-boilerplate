@@ -42,7 +42,7 @@ class UserService {
     // return this.api.post<UserAddOrUpdateResponse>(`${this.controller}/add`, user)
   }
 
-  async updateUser(id: number, user: UserAddOrUpdateRequest) {
+  async updateUser(id: string, user: UserAddOrUpdateRequest) {
     return new Promise<UserAddOrUpdateResponse>((resolve) => {
       setTimeout(() => {
         resolve(mockUserUpdateResponse(id, user) as UserAddOrUpdateResponse)
@@ -52,7 +52,7 @@ class UserService {
     // return this.api.put<UserAddOrUpdateResponse>(`${this.controller}/update/${id}`, user)
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: string) {
     return new Promise<UserDeletionResponse>((resolve) => {
       setTimeout(() => {
         resolve(mockUserDeletionResponse(id) as UserDeletionResponse)

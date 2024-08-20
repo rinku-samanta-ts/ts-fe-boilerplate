@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import {
+  Roles,
   UserAddOrUpdateRequest,
   userSchema,
 } from '@/validations/user.validation'
@@ -48,7 +49,7 @@ export const UserForm: FC<UserFormProps> = ({
   const defaultValues: Partial<User> = {
     email: '',
     username: '',
-    role: 'user',
+    role: Roles.USER,
   }
 
   const form = useForm<UserAddOrUpdateRequest>({
