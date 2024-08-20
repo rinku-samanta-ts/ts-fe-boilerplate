@@ -1,6 +1,6 @@
 import { TableState } from '@/hooks/use-table-state'
 import { GenericResponse } from './generic'
-import { Role } from '@/validations/user.validation'
+import { ProfileUpdateRequest, Role } from '@/validations/user.validation'
 
 export interface User {
   id: number
@@ -42,3 +42,9 @@ export type UserDeletionResponse = Pick<
   GenericResponse<unknown>,
   'status' | 'message'
 >
+
+export type ChangePasswordResponse = GenericResponse<{
+  message: string
+}>
+
+export type UpdateProfileResponse = GenericResponse<ProfileUpdateRequest>

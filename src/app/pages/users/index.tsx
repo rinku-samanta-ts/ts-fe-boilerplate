@@ -8,15 +8,12 @@ const Users: FC = () => {
   return (
     <Layout>
       <Layout.Header sticky>
-        <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
-          User List
-        </h1>
+        <h2 className='text-2xl font-bold tracking-tight'>Users</h2>
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />
         </div>
       </Layout.Header>
-
       <Layout.Body>
         <UsersList />
       </Layout.Body>

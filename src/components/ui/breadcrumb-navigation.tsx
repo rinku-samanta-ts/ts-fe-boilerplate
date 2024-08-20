@@ -30,7 +30,9 @@ export function BreadcrumbNavigation({ items }: BreadcrumbNavigationProps) {
               </BreadcrumbItem>
             ) : (
               <BreadcrumbItem>
-                <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                <BreadcrumbPage className='font-semibold'>
+                  {item.label}
+                </BreadcrumbPage>
               </BreadcrumbItem>
             )}
             {index < items.length - 1 && <BreadcrumbSeparator />}

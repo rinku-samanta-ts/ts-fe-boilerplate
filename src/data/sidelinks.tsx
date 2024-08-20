@@ -1,7 +1,6 @@
 import {
   IconChecklist,
   IconLayoutDashboard,
-  IconSettings,
   IconUserCircle,
 } from '@tabler/icons-react'
 
@@ -34,11 +33,5 @@ export const sidelinks: SideLink[] = [
     label: '3',
     href: '/tasks',
     icon: <IconChecklist size={18} />,
-  },
-  {
-    title: 'Settings',
-    label: '',
-    href: '/settings',
-    icon: <IconSettings size={18} />,
   },
 ]

@@ -3,6 +3,7 @@ import {
   mockUserUpdateResponse,
   mockUserAddResponse,
   mockUserDeletionResponse,
+  mockUpdateProfileResponse,
 } from '@/data/mock-response'
 import { apiService } from './api.service'
 import {
@@ -10,8 +11,12 @@ import {
   UserListRequest,
   UserAddOrUpdateResponse,
   UserDeletionResponse,
+  UpdateProfileResponse,
 } from '@/models/user.model'
-import { UserAddOrUpdateRequest } from '@/validations/user.validation'
+import {
+  ProfileUpdateRequest,
+  UserAddOrUpdateRequest,
+} from '@/validations/user.validation'
 
 class UserService {
   private api: typeof apiService
@@ -60,6 +65,16 @@ class UserService {
     })
     // Uncomment this to make the actual API call
     // return this.api.delete<UserDeletionResponse>(`${this.controller}/${id}`)
+  }
+
+  async updateProfile(body: ProfileUpdateRequest) {
+    return new Promise<UpdateProfileResponse>((resolve) => {
+      setTimeout(() => {
+        resolve(mockUpdateProfileResponse(body) as UpdateProfileResponse)
+      }, 500)
+    })
+    // Uncomment this to make the actual API call
+    // return this.api.put<ProfileUpdateResponse>(`${this.controller}/profile`, body);
   }
 }
 

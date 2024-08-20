@@ -1,5 +1,8 @@
 import { User, UserListRequest } from '@/models/user.model'
-import { UserAddOrUpdateRequest } from '@/validations/user.validation'
+import {
+  ProfileUpdateRequest,
+  UserAddOrUpdateRequest,
+} from '@/validations/user.validation'
 
 export const mockUser = {
   id: 1,
@@ -263,3 +266,16 @@ export const mockUserDeletionResponse = (id: number) => {
     message: 'User deleted successfully',
   }
 }
+export const mockChangePasswordResponse = {
+  status: 200,
+  message: 'Password changed successful',
+  data: {
+    message: 'Your password has been successfully changed.',
+  },
+}
+
+export const mockUpdateProfileResponse = (body: ProfileUpdateRequest) => ({
+  status: 200,
+  message: 'User update successful',
+  data: body,
+})

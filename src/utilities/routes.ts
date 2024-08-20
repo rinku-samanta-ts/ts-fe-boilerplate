@@ -7,10 +7,7 @@ export const Routes = {
   DASHBOARD: '/',
   TASKS: '/tasks',
   USERS: '/users',
-  SETTINGS: {
-    ROOT: '/settings',
-    ACCOUNT: '/settings/account',
-  },
+  PROFILE: '/profile',
   ERROR: {
     GENERAL: '/500',
     NOT_FOUND: '/404',
