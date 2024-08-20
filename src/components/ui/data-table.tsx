@@ -18,6 +18,8 @@ import {
   ArrowUpIcon,
   CaretSortIcon,
 } from '@radix-ui/react-icons'
+import { Skeleton } from './skeleton'
+
 interface DataTableProps<T> {
   tableProps: TableProps<T>
   isFetching: boolean
@@ -89,11 +91,23 @@ const DataTable = <T extends object>({
             </TableRow>
           ))
         ) : (
-          <TableRow>
-            <TableCell colSpan={totalColumn} className='h-24 text-center'>
-              {statusMessage}
-            </TableCell>
-          </TableRow>
+          <>
+            {!isFetching ? (
+              <TableRow>
+                <TableCell colSpan={totalColumn} className='h-24 text-center'>
+                  {statusMessage}
+                </TableCell>
+              </TableRow>
+            ) : (
+              Array.from({ length: 5 }).map((_, rowIndex) => (
+                <TableRow key={rowIndex}>
+                  <TableCell colSpan={totalColumn} className='text-center'>
+                    <Skeleton className='h-8' />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </>
         )}
       </TableBody>
     </Table>
