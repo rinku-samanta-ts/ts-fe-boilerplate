@@ -100,7 +100,8 @@ function NavLink({
         }),
         'h-12 justify-start text-wrap rounded-none px-6',
         'text-sm',
-        subLink && 'h-10 w-full border-l border-l-slate-500 px-2'
+        subLink && 'h-10 w-full border-l border-l-slate-500 px-2',
+        checkActiveNav(href) && 'border-r-4 border-r-foreground '
       )}
       aria-current={checkActiveNav(href) ? 'page' : undefined}
     >
@@ -170,7 +171,8 @@ function NavLinkIcon({ title, icon, label, href }: NavLinkProps) {
               variant: checkActiveNav(href) ? 'secondary' : 'ghost',
               size: 'icon',
             }),
-            'h-12 w-12'
+            'h-12 w-12',
+            checkActiveNav(href) && 'border border-foreground '
           )}
         >
           {icon}
