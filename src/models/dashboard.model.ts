@@ -1,15 +1,15 @@
 import { GenericResponse } from './generic'
 
-type AnalyticsCardData = {
+interface AnalyticsCardData {
   value: string
   percentageChange: string
 }
 
-type AnalyticsData = {
+interface AnalyticsData {
   totalRevenue: AnalyticsCardData
   subscriptions: AnalyticsCardData
   sales: AnalyticsCardData
   activeNow: AnalyticsCardData
 }
 
-export type AnalyticDataResponse = GenericResponse<AnalyticsData>
+export interface AnalyticDataResponse extends GenericResponse<AnalyticsData> {}
