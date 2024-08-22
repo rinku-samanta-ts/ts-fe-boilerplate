@@ -101,7 +101,8 @@ function NavLink({
         'h-12 justify-start text-wrap rounded-none px-6',
         'text-sm',
         subLink && 'h-10 w-full border-l border-l-slate-500 px-2',
-        checkActiveNav(href) && 'border-r-4 border-r-foreground '
+        checkActiveNav(href) && 'border-l-4 border-l-foreground ',
+        'border-l-foreground hover:border-l-4'
       )}
       aria-current={checkActiveNav(href) ? 'page' : undefined}
     >
